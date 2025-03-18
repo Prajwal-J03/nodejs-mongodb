@@ -17,15 +17,18 @@ const connect = async () => {
     }
 }
 
-const documentToDelete = { _id:1}
+const sampleAccount = {
+    name:"demo user",
+    accountNumber:"demo1",
+    accountType:"Checking",
+    balance:87432.89
+}
 
 const main = async () =>{
     try{
         await connect();
-        let result=await accountCollection.deleteOne(documentToDelete)
-        result.deletedCount === 1 
-        ? console.log(`Updated Document is ${result.deletedCount}`)
-        : console.log(`No document is modified`)
+        let result=await accountCollection.insertOne(sampleAccount)
+        console.log(result);
     }catch(err){
         console.error(`Error inserting document: ${err}`)
     }finally{
