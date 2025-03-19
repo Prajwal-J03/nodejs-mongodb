@@ -17,7 +17,14 @@ const connect = async () => {
     }
 };
 
-const sampleAccounts = [
+const singleAccount = {
+    name: "John Doe",
+    accountNumber: "acc1000",
+    accountType: "Checking",
+    balance: 65432.45
+};
+
+const multipleAccounts = [
     {
         name: "Alice Johnson",
         accountNumber: "acc1001",
@@ -53,8 +60,15 @@ const sampleAccounts = [
 const main = async () => {
     try {
         await connect();
-        let result = await accountCollection.insertMany(sampleAccounts);
-        console.log(`Inserted ${result.insertedCount} documents:`, result.insertedIds);
+
+        // Insert a single document
+        let singleInsertResult = await accountCollection.insertOne(singleAccount);
+        console.log(`Inserted one document:`, singleInsertResult.insertedId);
+
+        // Insert multiple documents
+        let multipleInsertResult = await accountCollection.insertMany(multipleAccounts);
+        console.log(`Inserted ${multipleInsertResult.insertedCount} documents:`, multipleInsertResult.insertedIds);
+
     } catch (err) {
         console.error(`Error inserting documents: ${err}`);
     } finally {
