@@ -69,8 +69,23 @@ const main = async () => {
         let multipleInsertResult = await accountCollection.insertMany(multipleAccounts);
         console.log(`Inserted ${multipleInsertResult.insertedCount} documents:`, multipleInsertResult.insertedIds);
 
+        // Update a document
+        const filter = { accountNumber: "acc1001" }; // The document to update
+        const updateDoc = {
+            $set: {
+                balance: 55000.00 // New balance to set
+            },
+        };
+
+        let updateResult = await accountCollection.updateOne(filter, updateDoc);
+        if (updateResult.matchedCount > 0) {
+            console.log(`Updated document with accountNumber acc1001`);
+        } else {
+            console.log(`No document found with accountNumber acc1001`);
+        }
+
     } catch (err) {
-        console.error(`Error inserting documents: ${err}`);
+        console.error(`Error inserting or updating documents: ${err}`);
     } finally {
         await client.close();
         console.log("Database connection closed.");
