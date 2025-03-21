@@ -84,8 +84,18 @@ const main = async () => {
             console.log(`No document found with accountNumber acc1001`);
         }
 
+        // Retrieve a document with findOne
+        const findFilter = { accountNumber: "acc1002" }; // The document to retrieve
+        const foundAccount = await accountCollection.findOne(findFilter);
+
+        if (foundAccount) {
+            console.log("Found account:", foundAccount);
+        } else {
+            console.log("No account found with accountNumber acc1002");
+        }
+
     } catch (err) {
-        console.error(`Error inserting or updating documents: ${err}`);
+        console.error(`Error inserting, updating or retrieving documents: ${err}`);
     } finally {
         await client.close();
         console.log("Database connection closed.");
