@@ -94,6 +94,16 @@ const main = async () => {
             console.log("No account found with accountNumber acc1002");
         }
 
+        // Retrieve multiple documents with findMany (added this method)
+        const findManyFilter = { accountType: "Checking" }; // Example filter to retrieve accounts of type "Checking"
+        const foundAccounts = await accountCollection.find(findManyFilter).toArray();
+
+        if (foundAccounts.length > 0) {
+            console.log("Found accounts:", foundAccounts);
+        } else {
+            console.log("No accounts found with accountType 'Checking'");
+        }
+
     } catch (err) {
         console.error(`Error inserting, updating or retrieving documents: ${err}`);
     } finally {
