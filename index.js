@@ -104,8 +104,17 @@ const main = async () => {
             console.log("No accounts found with accountType 'Checking'");
         }
 
+        // Delete a document with deleteOne
+        const deleteFilter = { accountNumber: "acc1004" }; // Example accountNumber to delete
+        let deleteResult = await accountCollection.deleteOne(deleteFilter);
+        if (deleteResult.deletedCount > 0) {
+            console.log(`Deleted document with accountNumber acc1004`);
+        } else {
+            console.log(`No document found with accountNumber acc1004`);
+        }
+
     } catch (err) {
-        console.error(`Error inserting, updating or retrieving documents: ${err}`);
+        console.error(`Error inserting, updating, deleting or retrieving documents: ${err}`);
     } finally {
         await client.close();
         console.log("Database connection closed.");
