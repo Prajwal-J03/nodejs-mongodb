@@ -113,6 +113,15 @@ const main = async () => {
             console.log(`No document found with accountNumber acc1004`);
         }
 
+        // Delete multiple documents with deleteMany
+        const deleteManyFilter = { accountType: "Savings" }; // Example filter to delete all 'Savings' accounts
+        let deleteManyResult = await accountCollection.deleteMany(deleteManyFilter);
+        if (deleteManyResult.deletedCount > 0) {
+            console.log(`Deleted ${deleteManyResult.deletedCount} documents with accountType 'Savings'`);
+        } else {
+            console.log(`No documents found with accountType 'Savings'`);
+        }
+
     } catch (err) {
         console.error(`Error inserting, updating, deleting or retrieving documents: ${err}`);
     } finally {
